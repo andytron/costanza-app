@@ -5,6 +5,68 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+
+  <script text="text/javascript">
+
+    var map;
+    var service;
+
+    function handleSearchResults(results, status) {
+      console.log(results);
+
+      for(var i = 0; i < results.length; i++) {
+        var marker = new google.maps.Marker({
+          position: results[i].geometry.location,
+          map: map,
+          // icon: results[i].icon
+        });
+      }
+    }
+
+    function performSearch() {
+      var request = {
+        bounds: map.getBounds(),
+        name: 'starbucks'
+      };
+      service.nearbySearch(request, handleSearchResults);
+    }
+
+    function initialize(location) {
+      console.log(location);
+
+      var currentLocation = new google.maps.LatLng(location.coords.latitude, location.coords.longitude);
+
+      var mapOptions = {
+        center: new google.maps.LatLng(location.coords.latitude, location.coords.longitude),
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
+
+      var marker = new google.maps.Marker({
+        position: currentLocation,
+        map: map
+      });
+
+      service = new google.maps.places.PlacesService(map);
+
+      // this ensures we wait until the map bounds are initialized
+      // before we perform the search
+      google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
+
+      // redo search when the refresh button is clicked
+      $('#refresh').click(performSearch);
+    }
+
+    $(document).ready(function() {
+      navigator.geolocation.getCurrentPosition(initialize);
+    });
+
+  </script>
 </head>
 <body>
 
@@ -26,7 +88,14 @@
     <p class="alert"><%= alert %></p>
   <% end %>
 
-  <%= yield %>
+  <div id="content">
+    <div id="restrooms">
+      <%= yield %>
+    </div>
+    <div class="map" id="map-canvas">
+      <button id="refresh">Refresh</button>
+    </div>
+  </div>
 
 </body>
 </html>

@@ -1,0 +1,73 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ *, *:before, *:after { box-sizing: border-box; }
+
+//  * {
+//   margin: 0;
+//   border: 0;
+//   padding: 0;
+//   font: inherit;
+// }
+
+.clearfix:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+#content {
+  display: block;
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.map {
+  display: block;
+  width: 40%;
+  position: fixed;
+  right: 0;
+  left: auto;
+  bottom: 0;
+}
+
+#map-canvas {
+  display: block;
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  z-index: 0;
+}
+
+#restrooms {
+  display: block;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  bottom: 0;
+  width: 60%;
+  overflow-y: scroll;
+}
+
+.restrooms-list {
+  display: block;
+  padding: 0 10px;
+  overflow-x: hidden;
+  position: static;
+}
