@@ -6,7 +6,7 @@ var Restroom = Backbone.Model.extend({
     category: 'apartment',
     coordinates: 'unknown',
     rating: 4,
-    google_id: 'unknown',
+    place_id: 'unknown',
     open_now: false
   }
 });
