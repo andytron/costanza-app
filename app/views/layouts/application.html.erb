@@ -1,271 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <title>Costanza App</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
-
-  <script text="text/javascript">
-
-    var map;
-    var service;
-    var marker;
-    var infowindow;
-    var autocomplete;
-
-    // callback
-    function handleSearchResults(results, status) {
-      console.log(results);
-
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        for(var i = 0; i < results.length; i++) {
-          createMarker(results[i]);
-        }
-      }
-    }
-
-    function createMarker(place) {
-      var placeLoc = place.geometry.location;
-      var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location
-        // icon: place.icon
-      });
-
-      google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(
-          '<div id="infowindow-content">' +
-          '<h4>' + place.name + '</h4>' +
-          '<p>Address: ' + place.vicinity + '</p>' +
-          '<p>Category: ' + place.types[0] + '</p>' +
-          '</div>'
-        );
-        infowindow.open(map, this);
-      });
-    }
-
-    function performSearch() {
-      var request = {
-        bounds: map.getBounds(),
-        keyword: 'starbucks'
-      };
-      var service = new google.maps.places.PlacesService(map);
-      service.nearbySearch(request, handleSearchResults);
-
-      var request1 = {
-        bounds: map.getBounds(),
-        keyword: 'park'
-      };
-      var service1 = new google.maps.places.PlacesService(map);
-      service1.nearbySearch(request1, handleSearchResults);
-
-      var request2 = {
-        bounds: map.getBounds(),
-        keyword: 'hotel'
-      };
-      var service2 = new google.maps.places.PlacesService(map);
-      service2.nearbySearch(request2, handleSearchResults);
-
-      var request3 = {
-        bounds: map.getBounds(),
-        keyword: 'department store'
-      };
-      var service3 = new google.maps.places.PlacesService(map);
-      service3.nearbySearch(request3, handleSearchResults);
-
-      var request4 = {
-        bounds: map.getBounds(),
-        keyword: 'nyu school'
-      };
-      var service4 = new google.maps.places.PlacesService(map);
-      service4.nearbySearch(request4, handleSearchResults);
-
-      var request5 = {
-        bounds: map.getBounds(),
-        keyword: 'bed bath beyond'
-      };
-      var service5 = new google.maps.places.PlacesService(map);
-      service5.nearbySearch(request5, handleSearchResults);
-
-      var request6 = {
-        bounds: map.getBounds(),
-        keyword: 'barnes and noble'
-      };
-      var service6 = new google.maps.places.PlacesService(map);
-      service6.nearbySearch(request6, handleSearchResults);
-
-      var request7 = {
-        bounds: map.getBounds(),
-        name: 'the new school'
-      };
-      var service7 = new google.maps.places.PlacesService(map);
-      service7.nearbySearch(request7, handleSearchResults);
-
-      var request8 = {
-        bounds: map.getBounds(),
-        name: 'foundation center'
-      };
-      var service8 = new google.maps.places.PlacesService(map);
-      service8.nearbySearch(request8, handleSearchResults);
-
-      var request9 = {
-        bounds: map.getBounds(),
-        name: 'angelika film center'
-      };
-      var service9 = new google.maps.places.PlacesService(map);
-      service9.nearbySearch(request9, handleSearchResults);
-
-      var request10 = {
-        bounds: map.getBounds(),
-        name: 'grand central terminal'
-      };
-      var service10 = new google.maps.places.PlacesService(map);
-      service10.nearbySearch(request10, handleSearchResults);
-    }
-
-    function initialize(location) {
-      console.log(location);
-
-      var currentLocation = new google.maps.LatLng(location.coords.latitude, location.coords.longitude);
-
-      var mapOptions = {
-        center: currentLocation,
-        zoom: 16,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-
-      map = new google.maps.Map(document.getElementById('map-canvas'),
-        mapOptions);
-
-      var input = document.getElementById('searchTextField');
-      autocomplete = new google.maps.places.Autocomplete(input);
-      places = new google.maps.places.PlacesService(map);
-      google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
-
-      function onPlaceChanged() {
-        var place = autocomplete.getPlace();
-          if (place.geometry) {
-            map.panTo(place.geometry.location);
-            map.setZoom(15);
-            search();
-          }
-      }
-
-      function search() {
-        var request = {
-          bounds: map.getBounds(),
-          keyword: 'starbucks'
-        };
-        var service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, handleSearchResults);
-
-        var request1 = {
-          bounds: map.getBounds(),
-          keyword: 'park'
-        };
-        var service1 = new google.maps.places.PlacesService(map);
-        service1.nearbySearch(request1, handleSearchResults);
-
-        var request2 = {
-          bounds: map.getBounds(),
-          keyword: 'hotel'
-        };
-        var service2 = new google.maps.places.PlacesService(map);
-        service2.nearbySearch(request2, handleSearchResults);
-
-        var request3 = {
-          bounds: map.getBounds(),
-          keyword: 'department store'
-        };
-        var service3 = new google.maps.places.PlacesService(map);
-        service3.nearbySearch(request3, handleSearchResults);
-
-        var request4 = {
-          bounds: map.getBounds(),
-          keyword: 'nyu school'
-        };
-        var service4 = new google.maps.places.PlacesService(map);
-        service4.nearbySearch(request4, handleSearchResults);
-
-        var request5 = {
-          bounds: map.getBounds(),
-          keyword: 'bed bath beyond'
-        };
-        var service5 = new google.maps.places.PlacesService(map);
-        service5.nearbySearch(request5, handleSearchResults);
-
-        var request6 = {
-          bounds: map.getBounds(),
-          keyword: 'barnes and noble'
-        };
-        var service6 = new google.maps.places.PlacesService(map);
-        service6.nearbySearch(request6, handleSearchResults);
-
-        var request7 = {
-          bounds: map.getBounds(),
-          name: 'the new school'
-        };
-        var service7 = new google.maps.places.PlacesService(map);
-        service7.nearbySearch(request7, handleSearchResults);
-
-        var request8 = {
-          bounds: map.getBounds(),
-          name: 'foundation center'
-        };
-        var service8 = new google.maps.places.PlacesService(map);
-        service8.nearbySearch(request8, handleSearchResults);
-
-        var request9 = {
-          bounds: map.getBounds(),
-          name: 'angelika film center'
-        };
-        var service9 = new google.maps.places.PlacesService(map);
-        service9.nearbySearch(request9, handleSearchResults);
-
-        var request10 = {
-          bounds: map.getBounds(),
-          name: 'grand central terminal'
-        };
-        var service10 = new google.maps.places.PlacesService(map);
-        service10.nearbySearch(request10, handleSearchResults);
-      }
-
-
-      infowindow = new google.maps.InfoWindow();
-      var marker = new google.maps.Marker({
-        position: currentLocation,
-        map: map,
-        animation: google.maps.Animation.DROP
-      });
-
-      google.maps.event.addListener(marker, 'click', toggleBounce);
-
-      // this ensures we wait until the map bounds are initialized
-      // before we perform the search
-      google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
-
-
-      // redo search when the refresh button is clicked
-      $('#refresh').click(performSearch);
-    }
-
-    function toggleBounce() {
-      if (marker.getAnimation() != null) {
-        marker.setAnimation(null);
-      } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-      }
-    }
-
-    $(document).ready(function() {
-      navigator.geolocation.getCurrentPosition(initialize);
-    });
-
-    google.maps.event.addDomListener(window, 'load', initialize);
-  </script>
 </head>
 <body>
 
@@ -279,7 +21,7 @@
       <%= link_to "Login", new_user_session_path %>
     <% end %>
 
-    <input id="searchTextField" type="text" placeholder="Search by Location">
+    <input id="searchTextField" type="text" placeholder="Search by Location" style="width: 300px;">
 
     <button id="refresh">Refresh Map</button>
 
@@ -299,5 +41,6 @@
     </div>
   </div>
 
+  <footer><div>Icons made by <a href="http://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge">Scott de Jonge</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div></footer>
 </body>
 </html>

@@ -33,7 +33,7 @@ class RestroomsController < ApplicationController
   private
 
   def restroom_params
-    params.require(:restroom).permit(:name, :address, :category, :coordinates, :rating, :google_id, :open_now)
+    params.require(:restroom).permit(:name, :address, :category, :coordinates, :rating, :place_id, :open_now)
   end
 
 end
