@@ -1,29 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <title>Costanza App</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+  <script src="https://rawgithub.com/leafo/sticky-kit/v1.1.1/jquery.sticky-kit.min.js"></script>
+
 </head>
 <body>
+  <!-- <div class="container-fluid"> -->
+    <!-- <div id="costanza-logo">
+      <img class="materialboxed" src="http://i.imgur.com/qo4VJ5E.png" alt="" />
+    </div> -->
 
-  <%= link_to "Home", root_path %>
-    <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.username %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path %> |
-      <%= link_to "Login", new_user_session_path %>
-    <% end %>
+    <div class="container-fluid">
+    <nav class="navbar">
+        <ul class="nav navbar-nav">
+          <li><%= link_to "Home", root_path %></li>
+            <% if user_signed_in? %>
+              <ul class="nav navbar-nav navbar-right">
+              <li><p class="navbar-text navbar-right">Logged in as <strong><%= current_user.username %></strong>.</p></li>
+            </ul>
 
-    <input id="searchTextField" type="text" placeholder="Search by Location" style="width: 300px;">
+              <div class="modal fade" id="about">
+                <div class="modal-dialog">
+                  <div class="modal-content">
 
-    <button id="refresh">Refresh Map</button>
+                    <div class="modal-body">
+                      <!-- <div class="modal-header"> -->
+                        <button name="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <!-- </div> -->
+                        <iframe id="yt-video" width="100%" height="400" src="https://www.youtube.com/embed/JYVBRQ7t46g" frameborder="0" allowfullscreen="false"></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <script>
+                $(function() {
+                  $('.close').click(function () {
+            $('#about').hide();
+            $('#about iframe').attr("src", jQuery("#about iframe").attr("src"));
+          });
+        });
+              </script>
+
+              <li><a href="#" data-toggle="modal" data-target="#about">About</a></li>
+
+              <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
+              <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+            <% else %>
+              <li><%= link_to "Sign up", new_user_registration_path %></li>
+              <li><%= link_to "Login", new_user_session_path %></li>
+            <% end %>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input id="searchTextField" type="text" placeholder="Search by Location" style="width: 300px;">
+          </div>
+        </form>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <button id="refresh" type="button">Refresh Map</button>
+        </ul>
+    </nav>
+    </div>
 
   <% if notice %>
     <p class="notice"><%= notice %></p>
@@ -33,14 +76,15 @@
     <p class="alert"><%= alert %></p>
   <% end %>
 
-  <div id="content">
-    <div id="restrooms">
-      <%= yield %>
-    </div>
-    <div class="map" id="map-canvas">
-    </div>
-  </div>
+  <%= yield %>
 
-  <footer><div>Icons made by <a href="http://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge">Scott de Jonge</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div></footer>
+  <!-- </div> -->
+    <footer class="footer">
+      <div class="container-fluid">
+        <p class="text-muted">2015 Costanza Inc.</p>
+      </div>
+    </footer>
+
+
 </body>
 </html>

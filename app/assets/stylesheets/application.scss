@@ -14,6 +14,10 @@
  *= require_self
  */
 
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+ @import url(http://fonts.googleapis.com/css?family=Hind);
+
  *, *:before, *:after { box-sizing: border-box; }
 
 //  * {
@@ -22,6 +26,10 @@
 //   padding: 0;
 //   font: inherit;
 // }
+
+button {
+  margin: 13px;
+}
 
 .clearfix:after {
   clear: both;
@@ -32,27 +40,58 @@
 #content {
   display: block;
   position: absolute;
-  top: 50px;
+  top: 100px;
   bottom: 0;
   left: 0;
   right: 0;
+  font-size: 14px;
+  font-family: 'Hind', sans-serif;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  // height: 50px;
 }
 
 .map {
   display: block;
-  width: 40%;
+  width: 35%;
   position: fixed;
   right: 0;
   left: auto;
-  bottom: 0;
+  bottom: 50px;
 }
 
 #map-canvas {
   display: block;
   position: absolute;
-  top: 0px;
+  // top: 50px;
   height: 100%;
   z-index: 0;
+}
+
+.close {
+  font-size: 40px;
+  color: white;
+}
+
+.modal-content {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background:transparent;
+  border:none;
+  outline:none;
+}
+
+.modal-header {
+  padding: 10px;
+  border-bottom: none;
+}
+
+.navbar-form {
+  padding-top: 3px;
 }
 
 #restrooms {
@@ -60,14 +99,22 @@
   position: fixed;
   top: 50px;
   left: 0;
-  bottom: 0;
-  width: 60%;
+  bottom: 50px;
+  width: 65%;
   overflow-y: scroll;
 }
 
-.restrooms-list {
+#restroom-result {
   display: block;
-  padding: 0 10px;
   overflow-x: hidden;
   position: static;
+  list-style: none;
+}
+
+.row {
+  margin-left: 0px;
+}
+
+.text-muted {
+  margin: 20px 0;
 }

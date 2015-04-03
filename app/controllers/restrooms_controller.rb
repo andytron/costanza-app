@@ -12,6 +12,7 @@ class RestroomsController < ApplicationController
   end
 
   def create
+    # binding.pry
     restroom = Restroom.create(restroom_params)
     render :json => restroom
   end
@@ -33,7 +34,7 @@ class RestroomsController < ApplicationController
   private
 
   def restroom_params
-    params.require(:restroom).permit(:name, :address, :category, :coordinates, :rating, :place_id, :open_now)
+    params.require(:restroom).permit(:name, :address, :category, :coordinates, :place_id, :results)
   end
 
 end

@@ -31,7 +31,7 @@ var icons = {
     icon: 'http://i.imgur.com/GGAOjqi.png'
   },
   park: {
-    icon: 'http://i.imgur.com/i1KnGgi.png'
+    icon: 'http://i.imgur.com/wmNUZXw.png'
   },
   school: {
     icon: 'http://i.imgur.com/fJiTaEZ.png'
@@ -44,14 +44,42 @@ var icons = {
   }
 };
 
+var video = $("#playerid").attr("src");
+$("#playerid").attr("src","");
+$("#playerid").attr("src",video);
+
 // callback
 function handleSearchResults(results, status) {
   console.log(results);
+
+  // var restroomData = [];
+  // for (var i = 0; i < results.length; i++) {
+  //   restroomData.push(results[i].name, results[i].vicinity, results[i].types[0] );
+  // }
+
+  var restroomData = $.map(results, function(result) {
+    return[[ result.name, result.vicinity, result.types[0] ]];
+  });
+
+  // debugger;
+
+  // if (results) {
+    $.ajax({
+      url: '/restrooms',
+      method: 'post',
+      data: {restroom: restroomData},
+      datatype: 'json',
+      success: function(){
+        console.log('ajax, baby!')
+      }
+    })
+  // }
 
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for(var i = 0; i < results.length; i++) {
       createMarker(results[i]);
       addRestroom(results[i]);
+      placeResult(results[i]);
     }
   }
 }
@@ -70,33 +98,38 @@ function createMarker(place) {
       '<div id="infowindow-content">' +
       '<h4>' + place.name + '</h4>' +
       '<p>Address: ' + place.vicinity + '</p>' +
-      '<p>Category: ' + place.types[0] + '</p>' +
       '</div>'
     );
     infowindow.open(map, this);
   });
+
+  markers.push(marker);
+
+  // for(var i = 0; i < place.length; i++) {
+    $('#restroom-result').on('click', function() {
+        google.maps.event.trigger(marker, 'click');
+    });
+  // }
 }
 
 function addRestroom(place, i) {
   console.log('render me restrooms');
 
   var $restrooms = $('#restrooms')
-  var $restroomResult = $('<ul class="restroom-result"></ul>')
-  var $restroomName = $('<li id="restroom-name">' + place.name +'</ul>');
+  var $restroomResult = $('<ul id="restroom-result" class="col-xs-6"></ul>')
   var $restroomLi = $(
+    '<li>' + place.name + '</li>' +
     '<li>Address: ' + place.vicinity + '</li>' +
-    '<li>Category: ' + place.types[0] + '</li>'
+    '<li>Category: ' + place.types[0] + '</li><br>'
   );
 
-  $('#restroom-name').on('click', function() {
-
-    google.maps.event.trigger(place[i], 'click');
-  });
-
   $restrooms.append($restroomResult);
-  $restroomResult.append($restroomName).append($restroomLi);
+  $restroomResult.append($restroomLi);
 }
 
+function placeResult(place, i) {
+
+}
 
 function performSearch() {
   var starbucks = {
@@ -298,7 +331,9 @@ function initialize(location) {
 
 
   // redo search when the refresh button is clicked
-  $('#refresh').click(performSearch);
+  $('#refresh').click(performSearch), function(e){
+    e.preventDefault();
+  }
 }
 
 $(document).ready(function() {
@@ -312,5 +347,5 @@ $(document).ready(function() {
         // navigator.geolocation.getCurrentPosition(addRestroom);
       }
     }
-  })
+  });
 });
