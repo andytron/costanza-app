@@ -16,7 +16,7 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
- @import url(http://fonts.googleapis.com/css?family=Roboto);
+ @import url(https://fonts.googleapis.com/css?family=Roboto);
 
  *, *:before, *:after { box-sizing: border-box; }
 
@@ -32,10 +32,10 @@
 // }
 
 a {
-    color: #42dca3;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
+  color: #42dca3;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
 
 a:hover,
@@ -76,14 +76,10 @@ html {
   right: 0;
   font-size: 1em;
   overflow: hidden;
-
-    // #restrooms {
-    //   background-color: #6fc5aa;
-    // }
 }
 
 .content-section {
-  padding-top: 100px;
+  padding-top: 50px;
 }
 
 .footer {
@@ -102,7 +98,7 @@ html {
   padding: 100px 0;
   text-align: center;
   color: #fff;
-  background: url(http://i.imgur.com/mQoFV3l.jpg) no-repeat bottom center scroll;
+  background: url(http://i.imgur.com/a3GURQC.jpg) no-repeat bottom center scroll;
   background-color: #6fc5aa;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -149,6 +145,10 @@ html {
   border-bottom: none;
 }
 
+.modal-body {
+  max-height: 800px;
+}
+
 .navbar {
   position: relative;
   min-height: 50px;
@@ -183,6 +183,7 @@ html {
 
 .navbar-custom .navbar-brand {
   font-weight: 900;
+  padding-left: 25px;
 }
 
 .navbar-custom .navbar-brand:focus {
@@ -288,8 +289,9 @@ p {
   width: 60%;
   height: 90%;
   padding-left: 15px;
+  padding-right: 15px;
   margin-bottom: 50px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 #restroom-result {
@@ -297,6 +299,9 @@ p {
   overflow-x: hidden;
   position: static;
   list-style: none;
+  color: #fff;
+  padding-left: 25px;
+  padding-right: 0;
 }
 
 // .row {

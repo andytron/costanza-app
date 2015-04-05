@@ -1,10 +1,17 @@
 // jQuery to collapse the navbar on scroll
 $(window).scroll(function() {
-    if ($(".navbar").offset().top > 50) {
-        $(".navbar-fixed-top").addClass("top-nav-collapse");
-    } else {
-        $(".navbar-fixed-top").removeClass("top-nav-collapse");
-    }
+  if ($(".navbar").offset().top > 100) {
+      $(".navbar-fixed-top").addClass("top-nav-collapse");
+  } else {
+      $(".navbar-fixed-top").removeClass("top-nav-collapse");
+  }
+
+  if ($(".content-section").offset().top > 100) {
+    $(".content-section").addClass("sticky");
+  } else {
+    $(".content-section").removeClass("sticky");
+  }
+
 });
 
 // jQuery for page scrolling feature
@@ -23,4 +30,23 @@ $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
 });
 
-$(".navbar, #content").stick_in_parent()
+// Sticky
+// $(function() {
+//   var stickyNavTop = $('.content-section').offset().top - 150;
+//
+//   var stickyNav = function() {
+//     var scrollTop = $(window).scrollTop();
+//
+//     if (scrollTop >= stickyNavTop) {
+//       $('.content-section').addClass('sticky');
+//     } else {
+//       $('.content-section').removeClass('sticky');
+//     }
+//   };
+//
+//   stickyNav();
+//
+//   $(window).scroll(function() {
+//       stickyNav();
+//   });
+// });

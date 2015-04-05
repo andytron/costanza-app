@@ -272,6 +272,8 @@ function initialize(location) {
     mapOptions);
 
   var input = document.getElementById('searchTextField');
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
   autocomplete = new google.maps.places.Autocomplete(input);
   places = new google.maps.places.PlacesService(map);
   google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);

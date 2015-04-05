@@ -7,7 +7,6 @@
   <%= csrf_meta_tags %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
-  <script src="https://rawgithub.com/leafo/sticky-kit/v1.1.1/jquery.sticky-kit.min.js"></script>
 
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -23,19 +22,7 @@
             <%= link_to "COSTANZA", root_path %>
           </span>
         </div>
-
-
         <ul class="nav navbar-nav">
-          <div class="modal fade" id="about" tabindex="-1">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-body">
-                    <button name="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <iframe id="yt-video" width="100%" height="400" src="https://www.youtube.com/embed/JYVBRQ7t46g?showinfo=0&rel=0" frameborder="0" allowfullscreen="false"></iframe>
-                </div>
-              </div>
-            </div>
-          </div>
           <li>
             <a href="#" data-toggle="modal" data-target="#about">ABOUT</a>
           </li>
@@ -60,19 +47,19 @@
             <li class="hidden">
               <a href="#page-top"></a>
             </li>
-            <li>
+            <li class="hidden">
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                  <input id="searchTextField" type="text" placeholder="Search by Location" style="width: 300px;">
+                  <input id="searchTextField" type="text" placeholder="Search by Location" style="width: 250px;">
                 </div>
               </form>
             </li>
             <li>
               <p class="navbar-text navbar-right">Logged in as <strong><%= current_user.username %></strong>.</p>
             </li>
-            <li>
+            <!-- <li>
               <%= link_to 'EDIT PROFILE', edit_user_registration_path %>
-            </li>
+            </li> -->
             <li>
               <%= link_to "LOGOUT", destroy_user_session_path, method: :delete %>
             </li>
@@ -88,6 +75,17 @@
         </div>
       </div>
     </nav>
+
+    <div class="modal fade" id="about" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+              <button name="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <iframe id="yt-video" width="100%" height="400" src="https://www.youtube.com/embed/JYVBRQ7t46g?showinfo=0&rel=0" frameborder="0" allowfullscreen="false"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <% if user_signed_in? %>
     <header class="logo">
