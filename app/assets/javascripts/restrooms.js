@@ -44,9 +44,6 @@ var icons = {
   }
 };
 
-var video = $("#playerid").attr("src");
-$("#playerid").attr("src","");
-$("#playerid").attr("src",video);
 
 // callback
 function handleSearchResults(results, status) {
@@ -54,40 +51,39 @@ function handleSearchResults(results, status) {
 
   // var restroomData = [];
   // for (var i = 0; i < results.length; i++) {
-  //   restroomData.push(results[i].name, results[i].vicinity, results[i].types[0] );
+  //   restroomData.push(results[i].place_id);
   // }
 
-  var restroomData = $.map(results, function(result) {
-    return[[ result.place_id ]];
-  });
+  // var restroomData = $.map(results, function(result) {
+  //   return [[result.place_id]];
+  // });
 
   // debugger;
 
   // if (results) {
-    $.ajax({
-      url: '/restrooms',
-      method: 'post',
-      data: {restroom: restroomData},
-      datatype: 'json',
-      success: function(){
-        console.log('ajax, baby!')
-      }
-    })
+    // $.ajax({
+    //   url: '/restrooms',
+    //   method: 'post',
+    //   data: {restroom: restroomData},
+    //   datatype: 'json',
+    //   success: function(data){
+    //     console.log('ajax, baby!')
+    //   }
+    // })
   // }
 
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for(var i = 0; i < results.length; i++) {
       createMarker(results[i]);
-      // addRestroom(results[i]);
     }
   }
 }
 
 function createMarker(place, i) {
-  // var placeLoc = place.geometry.location;
+  var placeLoc = place.geometry.location;
   var marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location,
+    position: placeLoc,
     animation: google.maps.Animation.DROP,
     icon: icons[place.types[0]].icon
   });
@@ -96,20 +92,21 @@ function createMarker(place, i) {
   var $restrooms = $('#restrooms');
   var $restroomResult = $('<ul id="restroom-result" class="col-xs-6"></ul>');
   var $restroomLi = $(
-    '<li>' + place.name + '</li>' +
+    '<li><h4>' + place.name + '</h4></li>' +
     '<li>Address: ' + place.vicinity + '</li>' +
-    '<li>Category: ' + place.types[0] + '</li><br>'
+    '<li>Category: ' + place.types[0] + '</li>' +'<br>'
   );
 
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(
       '<div id="infowindow-content">' +
       '<h4>' + place.name + '</h4>' +
-      '<p>Address: ' + place.vicinity + '</p>' +
+      'Address: ' + place.vicinity + '<br>' +
+      'Category: ' + place.types[0] +
       '</div>'
     );
-    infowindow.open(map, this);
 
+    infowindow.open(map, this);
   });
 
   markers.push(marker);
@@ -246,7 +243,7 @@ function performSearch() {
   clearResults();
   clearMarkers();
 
-  var keywordArray = ['starbucks', 'park', 'hotel', 'department store', 'nyu school', 'bed bath beyond', 'barnes and noble', 'the new school', 'foundation+center', 'angelika', 'grand central terminal' ]
+  var keywordArray = ['starbucks', 'coffee+shop', 'park', 'hotel', 'department store', 'nyu school', 'bed bath beyond', 'barnes and noble', 'the new school', 'foundation+center', 'angelika', 'grand central terminal']
 
   for (var i = 0; i < keywordArray.length; i++) {
     var arrayResults = {
@@ -292,7 +289,7 @@ function initialize(location) {
   }
 
   function search() {
-    var keywordArray = ['starbucks', 'park', 'hotel', 'department store', 'nyu school', 'bed bath beyond', 'barnes and noble', 'the new school', 'foundation+center', 'angelika', 'grand central terminal' ]
+    var keywordArray = ['starbucks', 'coffee+shop', 'park', 'hotel', 'department store', 'nyu school', 'bed bath beyond', 'barnes and noble', 'the new school', 'foundation+center', 'angelika', 'grand central terminal']
 
     for (var i = 0; i < keywordArray.length; i++) {
       var arrayResults = {
@@ -322,6 +319,10 @@ function initialize(location) {
   $('#refresh').click(performSearch);
 }
 
+// $(window).scroll(function(){
+//     $(".navbar").css("top",Math.max(0,250-$(this).scrollTop()));
+// });
+
 $(document).ready(function() {
   $.ajax({
     url: '/logged_in',
@@ -330,7 +331,6 @@ $(document).ready(function() {
     success: function(data){
       if(data){
         navigator.geolocation.getCurrentPosition(initialize);
-        // navigator.geolocation.getCurrentPosition(addRestroom);
       }
     }
   });

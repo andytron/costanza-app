@@ -16,7 +16,7 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
- @import url(http://fonts.googleapis.com/css?family=Hind);
+ @import url(http://fonts.googleapis.com/css?family=Roboto);
 
  *, *:before, *:after { box-sizing: border-box; }
 
@@ -27,8 +27,34 @@
 //   font: inherit;
 // }
 
-button {
-  margin: 13px;
+// .alert, .notice {
+//   padding: 5px;
+// }
+
+a {
+    color: #42dca3;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #6fc5aa;
+  width: 100%;
+  height: 100%;
+  webkit-tap-highlight-color: rgba(255,255,255,.2);
+}
+
+html {
+  width: 100%;
+  height: 100%;
 }
 
 .clearfix:after {
@@ -37,44 +63,77 @@ button {
   content: "";
 }
 
+.close {
+  color: white;
+}
+
 #content {
   display: block;
-  position: absolute;
-  top: 100px;
-  bottom: 0;
+  // position: relative;
+  // background-color: #6fc5aa;
+  bottom: 100px;
   left: 0;
   right: 0;
-  font-size: 14px;
-  font-family: 'Hind', sans-serif;
+  font-size: 1em;
+  overflow: hidden;
+
+    // #restrooms {
+    //   background-color: #6fc5aa;
+    // }
+}
+
+.content-section {
+  padding-top: 100px;
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
+  height: 50px;
+  background-color: #6fc5aa;
   // height: 50px;
 }
 
-.map {
-  display: block;
-  width: 40%;
-  position: fixed;
-  right: 0;
-  left: auto;
-  bottom: 50px;
+.logo {
+  // display: table;
+  width: 100%;
+  height: auto;
+  padding: 100px 0;
+  text-align: center;
+  color: #fff;
+  background: url(http://i.imgur.com/mQoFV3l.jpg) no-repeat bottom center scroll;
+  background-color: #6fc5aa;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.logo .logo-body {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+@media(min-width:768px) {
+  .logo {
+    height: 100%;
+    padding: 0;
+  }
+}
+
+#map-canvas, #restrooms {
+  max-height: 100%;
 }
 
 #map-canvas {
   display: block;
   position: absolute;
-  // top: 50px;
-  height: 100%;
+  right: 0;
+  left: auto;
+  width: 40%;
+  height: 90%;
   z-index: 0;
-}
-
-.close {
-  font-size: 40px;
-  color: white;
 }
 
 .modal-content {
@@ -90,17 +149,146 @@ button {
   border-bottom: none;
 }
 
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+
+// nav {
+//   .navbar {
+//     background-color: #6fc5aa;
+//   }
+// }
+
+// ::-moz-selection {
+//     text-shadow: none;
+//     background: #fcfcfc;
+//     background: rgba(255,255,255,.2);
+// }
+//
+// ::selection {
+//     text-shadow: none;
+//     background: #fcfcfc;
+//     background: rgba(255,255,255,.2);
+// }
+
+.navbar-custom {
+  margin-bottom: 0;
+  // border-bottom: 1px solid rgba(255,255,255,.3);
+  // font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  background-color: #6fc5aa;
+}
+
+.navbar-custom .navbar-brand {
+  font-weight: 900;
+}
+
+.navbar-custom .navbar-brand:focus {
+  outline: 0;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle {
+  padding: 4px 6px;
+  // font-size: 16px;
+  color: #fff;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle:focus,
+.navbar-custom .navbar-brand .navbar-toggle:active {
+  outline: 0;
+}
+
+.navbar-custom a {
+  color: #fff;
+}
+
+.navbar-custom .nav li a {
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
 .navbar-form {
   padding-top: 3px;
 }
 
+.navbar-right {
+  margin-right: 0px;
+}
+
+.navbar-custom .nav li a {
+  -webkit-transition: background .3s ease-in-out;
+  -moz-transition: background .3s ease-in-out;
+  transition: background .3s ease-in-out;
+}
+
+.navbar-custom .nav li a:hover {
+    outline: 0;
+    color: rgba(255,255,255,.8);
+    background-color: transparent;
+}
+
+.navbar-custom .nav li a:focus,
+.navbar-custom .nav li a:active {
+    outline: 0;
+    background-color: transparent;
+}
+
+.navbar-custom .nav li.active {
+    outline: 0;
+}
+
+.navbar-custom .nav li.active a {
+    background-color: rgba(255,255,255,.3);
+}
+
+.navbar-custom .nav li.active a:hover {
+  color: #fff;
+}
+
+@media(min-width:768px) {
+  .navbar-custom {
+    padding: 20px 0;
+    border-bottom: 0;
+    letter-spacing: 1px;
+    background: 0 0;
+    -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+    -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+    transition: background .5s ease-in-out,padding .5s ease-in-out;
+}
+
+  .navbar-custom.top-nav-collapse {
+    padding: 0;
+    // border-bottom: 1px solid rgba(255,255,255,.3);
+    background: #6fc5aa;
+  }
+}
+
+.navbar-fixed-top {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+p {
+  color: #fff;
+}
+
+#refresh {
+  margin: 10px;
+}
+
 #restrooms {
   display: block;
-  position: fixed;
-  top: 50px;
+  position: absolute;
   left: 0;
-  bottom: 50px;
   width: 60%;
+  height: 90%;
+  padding-left: 15px;
+  margin-bottom: 50px;
   overflow-y: scroll;
 }
 
@@ -111,10 +299,11 @@ button {
   list-style: none;
 }
 
-.row {
-  margin-left: 0px;
-}
+// .row {
+//   margin-left: 0px;
+// }
 
 .text-muted {
   margin: 20px 0;
+  color: #fff;
 }

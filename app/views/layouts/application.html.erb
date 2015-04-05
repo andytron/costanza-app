@@ -10,74 +10,117 @@
   <script src="https://rawgithub.com/leafo/sticky-kit/v1.1.1/jquery.sticky-kit.min.js"></script>
 
 </head>
-<body>
-  <!-- <div class="container-fluid"> -->
-    <!-- <div id="costanza-logo">
-      <img class="materialboxed" src="http://i.imgur.com/qo4VJ5E.png" alt="" />
-    </div> -->
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-    <div class="container-fluid">
-    <nav class="navbar">
+    <!-- <nav class="navbar navbar-custom navbar-fixed-top" role="navigation" style="top: 0px !important;"> -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
+          <span class="navbar-brand">
+            <%= link_to "COSTANZA", root_path %>
+          </span>
+        </div>
+
+
         <ul class="nav navbar-nav">
-          <li><%= link_to "Home", root_path %></li>
-            <% if user_signed_in? %>
-              <ul class="nav navbar-nav navbar-right">
-              <li><p class="navbar-text navbar-right">Logged in as <strong><%= current_user.username %></strong>.</p></li>
-            </ul>
-
-              <div class="modal fade" id="about" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-
-                    <div class="modal-body">
-                      <!-- <div class="modal-header"> -->
-                        <button name="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <!-- </div> -->
-                        <iframe id="yt-video" width="100%" height="400" src="https://www.youtube.com/embed/JYVBRQ7t46g" frameborder="0" allowfullscreen="false"></iframe>
-                    </div>
-                  </div>
+          <div class="modal fade" id="about" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                    <button name="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <iframe id="yt-video" width="100%" height="400" src="https://www.youtube.com/embed/JYVBRQ7t46g?showinfo=0&rel=0" frameborder="0" allowfullscreen="false"></iframe>
                 </div>
               </div>
-
-              <li><a href="#" data-toggle="modal" data-target="#about">About</a></li>
-
-              <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
-              <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-            <% else %>
-              <li><%= link_to "Sign up", new_user_registration_path %></li>
-              <li><%= link_to "Login", new_user_session_path %></li>
-            <% end %>
-            <% if user_signed_in? %>
-        <form class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <input id="searchTextField" type="text" placeholder="Search by Location" style="width: 300px;">
+            </div>
           </div>
-        </form>
+          <li>
+            <a href="#" data-toggle="modal" data-target="#about">ABOUT</a>
+          </li>
+          <script>
+            $(function() {
+              $('.close').click(function () {
+                $('#about').hide();
+                $('#about iframe').attr("src", jQuery("#about iframe").attr("src"));
+              });
+            });
+          </script>
+          <% if user_signed_in? %>
+          <li>
+            <button id="refresh" type="button" class="btn btn-default btn-sm">Refresh Map</button>
+          </li>
+          <% end %>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <button id="refresh" type="button">Reposition & Refresh Map</button>
-        </ul>
-        <% end %>
+
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+          <ul class="nav navbar-nav">
+            <% if user_signed_in? %>
+            <li class="hidden">
+              <a href="#page-top"></a>
+            </li>
+            <li>
+              <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                  <input id="searchTextField" type="text" placeholder="Search by Location" style="width: 300px;">
+                </div>
+              </form>
+            </li>
+            <li>
+              <p class="navbar-text navbar-right">Logged in as <strong><%= current_user.username %></strong>.</p>
+            </li>
+            <li>
+              <%= link_to 'EDIT PROFILE', edit_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "LOGOUT", destroy_user_session_path, method: :delete %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to "SIGN UP", new_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "LOGIN", new_user_session_path %>
+            </li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
     </nav>
+
+    <% if user_signed_in? %>
+    <header class="logo">
+      <div class="logo-body">
+        <div class="container">
+          <div class="row"></div>
+        </div>
+      </div>
+    </header>
+    <% end %>
+
+    <div id="content" class="container-fluid content-section">
+      <!-- <% if notice %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= notice %>
+      </div>
+      <% end %>
+      <% if alert %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= alert %>
+      </div>
+      <% end %> -->
+
+      <%= yield %>
+
     </div>
 
-  <% if notice %>
-    <p class="notice"><%= notice %></p>
-  <% end %>
-
-  <% if alert %>
-    <p class="alert"><%= alert %></p>
-  <% end %>
-
-  <%= yield %>
-
-  <!-- </div> -->
-    <footer class="footer">
-      <div class="container-fluid">
-        <p class="text-muted">2015 Costanza Inc.</p>
-      </div>
-    </footer>
-
-
+  <footer class="footer">
+    <div class="container-fluid">
+      <p class="text-muted">&#8482; 2015 Costanza Inc.</p>
+    </div>
+  </footer>
 </body>
 </html>
