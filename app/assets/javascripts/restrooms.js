@@ -44,10 +44,14 @@ var icons = {
   }
 };
 
-
 // callback
 function handleSearchResults(results, status) {
-  console.log(results);
+
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for(var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
+  }
 
   // var restroomData = [];
   // for (var i = 0; i < results.length; i++) {
@@ -58,25 +62,17 @@ function handleSearchResults(results, status) {
   //   return [[result.place_id]];
   // });
 
-  // debugger;
-
   // if (results) {
-    // $.ajax({
-    //   url: '/restrooms',
-    //   method: 'post',
-    //   data: {restroom: restroomData},
-    //   datatype: 'json',
-    //   success: function(data){
-    //     console.log('ajax, baby!')
-    //   }
-    // })
+  //   $.ajax({
+  //     url: '/restrooms',
+  //     method: 'post',
+  //     data: {restroom: restroomData},
+  //     datatype: 'json',
+  //     success: function(data){
+  //       console.log('ajax!)
+  //     }
+  //   })
   // }
-
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for(var i = 0; i < results.length; i++) {
-      createMarker(results[i]);
-    }
-  }
 }
 
 function createMarker(place, i) {
@@ -129,27 +125,6 @@ function clearMarkers() {
   markers = [];
 }
 
-// function addRestroom(place, i) {
-//   console.log('render me restrooms');
-//
-//   var $restrooms = $('#restrooms')
-//   var $restroomResult = $('<ul id="restroom-result" class="col-xs-6"></ul>')
-//   var $restroomLi = $(
-//     '<li>' + place.name + '</li>' +
-//     '<li>Address: ' + place.vicinity + '</li>' +
-//     '<li>Category: ' + place.types[0] + '</li><br>'
-//   );
-//
-//   // for(var i = 0; i < place.length; i++) {
-//     $('#restroom-result').on('click', function() {
-//         google.maps.event.trigger(marker[i], 'click');
-//     });
-//   // }
-//
-//   $restrooms.append($restroomResult);
-//   $restroomResult.append($restroomLi);
-// }
-
 function clearResults() {
   var restrooms = document.getElementById('restrooms');
   while (restrooms.childNodes[0]) {
@@ -157,93 +132,11 @@ function clearResults() {
   }
 }
 
-// function performSearch() {
-//   clearResults();
-//   clearMarkers();
-//
-//   var starbucks = {
-//     bounds: map.getBounds(),
-//     keyword: 'starbucks'
-//   };
-//   var service = new google.maps.places.PlacesService(map);
-//   service.nearbySearch(starbucks, handleSearchResults);
-//
-//   var park = {
-//     bounds: map.getBounds(),
-//     keyword: 'park'
-//   };
-//   var service1 = new google.maps.places.PlacesService(map);
-//   service1.nearbySearch(park, handleSearchResults);
-//
-//   var hotel = {
-//     bounds: map.getBounds(),
-//     keyword: 'hotel'
-//   };
-//   var service2 = new google.maps.places.PlacesService(map);
-//   service2.nearbySearch(hotel, handleSearchResults);
-//
-//   var dept_store = {
-//     bounds: map.getBounds(),
-//     keyword: 'department store'
-//   };
-//   var service3 = new google.maps.places.PlacesService(map);
-//   service3.nearbySearch(dept_store, handleSearchResults);
-//
-//   var nyu_school = {
-//     bounds: map.getBounds(),
-//     keyword: 'nyu school'
-//   };
-//   var service4 = new google.maps.places.PlacesService(map);
-//   service4.nearbySearch(nyu_school, handleSearchResults);
-//
-//   var bedbathbey = {
-//     bounds: map.getBounds(),
-//     keyword: 'bed bath beyond'
-//   };
-//   var service5 = new google.maps.places.PlacesService(map);
-//   service5.nearbySearch(bedbathbey, handleSearchResults);
-//
-//   var barnes_noble = {
-//     bounds: map.getBounds(),
-//     keyword: 'barnes and noble'
-//   };
-//   var service6 = new google.maps.places.PlacesService(map);
-//   service6.nearbySearch(barnes_noble, handleSearchResults);
-//
-//   var newschool = {
-//     bounds: map.getBounds(),
-//     name: 'the new school'
-//   };
-//   var service7 = new google.maps.places.PlacesService(map);
-//   service7.nearbySearch(newschool, handleSearchResults);
-//
-//   var found_cen = {
-//     bounds: map.getBounds(),
-//     name: 'foundation+center'
-//   };
-//   var service8 = new google.maps.places.PlacesService(map);
-//   service8.nearbySearch(found_cen, handleSearchResults);
-//
-//   var film_cen = {
-//     bounds: map.getBounds(),
-//     name: 'angelika'
-//   };
-//   var service9 = new google.maps.places.PlacesService(map);
-//   service9.nearbySearch(film_cen, handleSearchResults);
-//
-//   var grand_central = {
-//     bounds: map.getBounds(),
-//     name: 'grand central terminal'
-//   };
-//   var service10 = new google.maps.places.PlacesService(map);
-//   service10.nearbySearch(grand_central, handleSearchResults);
-// }
-
 function performSearch() {
   clearResults();
   clearMarkers();
 
-  var keywordArray = ['starbucks', 'coffee+shop', 'park', 'hotel', 'department store', 'nyu school', 'bed bath beyond', 'barnes and noble', 'the new school', 'foundation+center', 'angelika', 'grand central terminal']
+  var keywordArray = ['starbucks', 'coffee+shop', 'park', 'hotel', 'department store', 'nyu school', 'bed bath beyond', 'barnes and noble', 'the new school', 'foundation+center', 'angelika', 'grand central terminal'];
 
   for (var i = 0; i < keywordArray.length; i++) {
     var arrayResults = {
@@ -272,7 +165,6 @@ function initialize(location) {
     mapOptions);
 
   var input = document.getElementById('searchTextField');
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
   autocomplete = new google.maps.places.Autocomplete(input);
   places = new google.maps.places.PlacesService(map);
@@ -291,7 +183,7 @@ function initialize(location) {
   }
 
   function search() {
-    var keywordArray = ['starbucks', 'coffee+shop', 'park', 'hotel', 'department store', 'nyu school', 'bed bath beyond', 'barnes and noble', 'the new school', 'foundation+center', 'angelika', 'grand central terminal']
+    var keywordArray = ['starbucks', 'coffee+shop', 'park', 'hotel', 'department store', 'nyu school', 'bed bath beyond', 'barnes and noble', 'the new school', 'foundation+center', 'angelika', 'grand central terminal'];
 
     for (var i = 0; i < keywordArray.length; i++) {
       var arrayResults = {
@@ -320,10 +212,6 @@ function initialize(location) {
   // redo search when the refresh button is clicked
   $('#refresh').click(performSearch);
 }
-
-// $(window).scroll(function(){
-//     $(".navbar").css("top",Math.max(0,250-$(this).scrollTop()));
-// });
 
 $(document).ready(function() {
   $.ajax({

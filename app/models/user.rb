@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
 
   has_many :comments
   has_many :favorites
-  has_many :ratings
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

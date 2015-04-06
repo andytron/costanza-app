@@ -38,16 +38,6 @@ ActiveRecord::Schema.define(version: 20150403140355) do
   add_index "favorites", ["restroom_id"], name: "index_favorites_on_restroom_id", using: :btree
   add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
-  create_table "ratings", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "restroom_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "ratings", ["restroom_id"], name: "index_ratings_on_restroom_id", using: :btree
-  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
-
   create_table "restrooms", force: :cascade do |t|
     t.string   "place_id"
     t.datetime "created_at", null: false
@@ -78,6 +68,4 @@ ActiveRecord::Schema.define(version: 20150403140355) do
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "restrooms"
   add_foreign_key "favorites", "users"
-  add_foreign_key "ratings", "restrooms"
-  add_foreign_key "ratings", "users"
 end

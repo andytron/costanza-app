@@ -1,6 +1,5 @@
 class RestroomsController < ApplicationController
   before_action :authenticate_user!
-  # protect_from_forgery :except => :receive_guest
 
   def index
     @restrooms = Restroom.all
@@ -34,7 +33,7 @@ class RestroomsController < ApplicationController
   private
 
   def restroom_params
-    params.require(:restroom).permit(:name, :address, :category, :coordinates, :place_id, :results)
+    params.require(:restroom).permit(:place_id)
   end
 
 end

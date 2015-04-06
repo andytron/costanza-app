@@ -1,35 +1,8 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require_tree .
- *= require_self
- */
-
- @import "bootstrap-sprockets";
- @import "bootstrap";
- @import url(https://fonts.googleapis.com/css?family=Roboto);
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 
  *, *:before, *:after { box-sizing: border-box; }
-
-//  * {
-//   margin: 0;
-//   border: 0;
-//   padding: 0;
-//   font: inherit;
-// }
-
-// .alert, .notice {
-//   padding: 5px;
-// }
 
 a {
   color: #42dca3;
@@ -42,6 +15,10 @@ a:hover,
 a:focus {
   text-decoration: none;
   outline: none;
+}
+
+#about {
+  top: 10%;
 }
 
 body {
@@ -64,22 +41,38 @@ html {
 }
 
 .close {
-  color: white;
+  color: #fff;
+}
+
+@media (min-width: 768px){
+  #sessions {
+    width: 450px;
+  }
 }
 
 #content {
   display: block;
-  // position: relative;
-  // background-color: #6fc5aa;
-  bottom: 100px;
-  left: 0;
-  right: 0;
+  position: relative;
   font-size: 1em;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .content-section {
-  padding-top: 50px;
+  padding-top: 60px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.content-section.sticky {
+  position: fixed;
+  top: 0;
+}
+
+.form-group a {
+  color: #000;
 }
 
 .footer {
@@ -88,17 +81,15 @@ html {
   width: 100%;
   height: 50px;
   background-color: #6fc5aa;
-  // height: 50px;
 }
 
 .logo {
-  // display: table;
   width: 100%;
   height: auto;
   padding: 100px 0;
   text-align: center;
   color: #fff;
-  background: url(http://i.imgur.com/a3GURQC.jpg) no-repeat bottom center scroll;
+  background: url(http://i.imgur.com/O4tUYJr.jpg) no-repeat bottom center scroll;
   background-color: #6fc5aa;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -116,10 +107,6 @@ html {
     height: 100%;
     padding: 0;
   }
-}
-
-#map-canvas, #restrooms {
-  max-height: 100%;
 }
 
 #map-canvas {
@@ -140,45 +127,50 @@ html {
   outline:none;
 }
 
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 800px;
+  }
+}
+
 .modal-header {
   padding: 10px;
   border-bottom: none;
 }
 
 .modal-body {
-  max-height: 800px;
+  height: 525px;
+  padding: 0;
 }
 
 .navbar {
-  position: relative;
-  min-height: 50px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
+  min-height: 60px;
 }
 
-// nav {
-//   .navbar {
-//     background-color: #6fc5aa;
-//   }
-// }
+nav {
+  .navbar {
+    background-color: #6fc5aa;
+  }
+}
 
-// ::-moz-selection {
-//     text-shadow: none;
-//     background: #fcfcfc;
-//     background: rgba(255,255,255,.2);
-// }
-//
-// ::selection {
-//     text-shadow: none;
-//     background: #fcfcfc;
-//     background: rgba(255,255,255,.2);
-// }
+::-moz-selection {
+    text-shadow: none;
+    background: #fcfcfc;
+    background: rgba(255,255,255,.2);
+}
+
+::selection {
+    text-shadow: none;
+    background: #fcfcfc;
+    background: rgba(255,255,255,.2);
+}
 
 .navbar-custom {
-  margin-bottom: 0;
-  // border-bottom: 1px solid rgba(255,255,255,.3);
-  // font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  position: fixed;
+  height: 50px;
+  margin-bottom: 20px;
   background-color: #6fc5aa;
+  z-index: 900;
 }
 
 .navbar-custom .navbar-brand {
@@ -192,7 +184,6 @@ html {
 
 .navbar-custom .navbar-brand .navbar-toggle {
   padding: 4px 6px;
-  // font-size: 16px;
   color: #fff;
 }
 
@@ -206,9 +197,9 @@ html {
 }
 
 .navbar-custom .nav li a {
-    -webkit-transition: background .3s ease-in-out;
-    -moz-transition: background .3s ease-in-out;
-    transition: background .3s ease-in-out;
+  -webkit-transition: background .3s ease-in-out;
+  -moz-transition: background .3s ease-in-out;
+  transition: background .3s ease-in-out;
 }
 
 .navbar-form {
@@ -226,15 +217,15 @@ html {
 }
 
 .navbar-custom .nav li a:hover {
-    outline: 0;
-    color: rgba(255,255,255,.8);
-    background-color: transparent;
+  outline: 0;
+  color: rgba(255,255,255,.8);
+  background-color: transparent;
 }
 
 .navbar-custom .nav li a:focus,
 .navbar-custom .nav li a:active {
-    outline: 0;
-    background-color: transparent;
+  outline: 0;
+  background-color: transparent;
 }
 
 .navbar-custom .nav li.active {
@@ -242,14 +233,14 @@ html {
 }
 
 .navbar-custom .nav li.active a {
-    background-color: rgba(255,255,255,.3);
+  background-color: rgba(255,255,255,.3);
 }
 
 .navbar-custom .nav li.active a:hover {
   color: #fff;
 }
 
-@media(min-width:768px) {
+@media (min-width:768px) {
   .navbar-custom {
     padding: 20px 0;
     border-bottom: 0;
@@ -258,20 +249,12 @@ html {
     -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
     -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
     transition: background .5s ease-in-out,padding .5s ease-in-out;
-}
+  }
 
   .navbar-custom.top-nav-collapse {
     padding: 0;
-    // border-bottom: 1px solid rgba(255,255,255,.3);
     background: #6fc5aa;
   }
-}
-
-.navbar-fixed-top {
-  position: fixed;
-  right: 0;
-  left: 0;
-  z-index: 1030;
 }
 
 p {
@@ -288,8 +271,8 @@ p {
   left: 0;
   width: 60%;
   height: 90%;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
   margin-bottom: 50px;
   overflow-y: auto;
 }
@@ -304,11 +287,11 @@ p {
   padding-right: 0;
 }
 
-// .row {
-//   margin-left: 0px;
-// }
+.row {
+
+}
 
 .text-muted {
-  margin: 20px 0;
+  margin: 10px 0;
   color: #fff;
 }
