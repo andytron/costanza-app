@@ -6,6 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 
 </head>
@@ -34,7 +35,7 @@
             });
           </script>
           <% if user_signed_in? %>
-          <li>
+          <li id="scroll-reveal">
             <button id="refresh" type="button" class="btn btn-default btn-sm">Refresh Map</button>
           </li>
           <% end %>
@@ -46,7 +47,7 @@
             <li class="hidden">
               <a href="#page-top"></a>
             </li>
-            <li>
+            <li id="scroll-reveal">
               <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
                   <input id="searchTextField" type="text" placeholder="Search by Location" style="width: 250px;">
@@ -87,13 +88,19 @@
     <header class="logo">
       <div class="logo-body">
         <div class="container">
-          <div class="row"></div>
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <a href="#content-section" class="btn btn-custom page-scroll">
+                <i class="glyphicon glyphicon-chevron-down"></i>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </header>
     <% end %>
 
-    <div class="container-fluid content-section">
+    <div class="container-fluid" id="content-section">
       <%= yield %>
     </div>
 
