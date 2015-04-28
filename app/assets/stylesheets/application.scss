@@ -94,6 +94,10 @@ html {
   background-color: #6fc5aa;
 }
 
+.instructions {
+  font-size: .5em;
+}
+
 .logo {
   display: table;
   width: 100%;
@@ -311,4 +315,12 @@ p {
 .text-muted {
   margin: 10px 0;
   color: #fff;
+
+  a {
+    color: #fff;
+  }
+
+  a:hover {
+    color: rgba(255,255,255,0.8);
+  }
 }
