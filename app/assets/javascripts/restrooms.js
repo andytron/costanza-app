@@ -44,7 +44,7 @@ var icons = {
   }
 };
 
-// callback
+// callback to create map markers for all restroom results
 function handleSearchResults(results, status) {
 
   if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -52,29 +52,9 @@ function handleSearchResults(results, status) {
       createMarker(results[i]);
     }
   }
-
-  // var restroomData = [];
-  // for (var i = 0; i < results.length; i++) {
-  //   restroomData.push(results[i].place_id);
-  // }
-
-  // var restroomData = $.map(results, function(result) {
-  //   return [[result.place_id]];
-  // });
-
-  // if (results) {
-  //   $.ajax({
-  //     url: '/restrooms',
-  //     method: 'post',
-  //     data: {restroom: restroomData},
-  //     datatype: 'json',
-  //     success: function(data){
-  //       console.log('ajax!)
-  //     }
-  //   })
-  // }
 }
 
+// creates a map marker per restroom result
 function createMarker(place, i) {
   var placeLoc = place.geometry.location;
   var marker = new google.maps.Marker({
@@ -93,6 +73,7 @@ function createMarker(place, i) {
     '<li>Category: ' + place.types[0] + '</li>' +'<br>'
   );
 
+  // generates infowindows on the map for restroom results
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(
       '<div id="infowindow-content">' +
@@ -107,6 +88,7 @@ function createMarker(place, i) {
 
   markers.push(marker);
 
+  // event listener when user clicks on a map marker for restroom info
   google.maps.event.addDomListener($restroomResult[0], 'click', function() {
     google.maps.event.trigger(marker, 'click');
   });
@@ -115,6 +97,8 @@ function createMarker(place, i) {
   $restroomResult.append($restroomLi);
 }
 
+// clears all markers from the viewable map
+// when a new search is made
 function clearMarkers() {
   for (var i = 0; i < markers.length; i++) {
     if (markers[i]) {
@@ -125,6 +109,8 @@ function clearMarkers() {
   markers = [];
 }
 
+// clears all restroom results from the document
+// when a new search is made
 function clearResults() {
   var restrooms = document.getElementById('restrooms');
   while (restrooms.childNodes[0]) {
@@ -132,6 +118,8 @@ function clearResults() {
   }
 }
 
+// if the map is repositioned and user clicks on 'Refresh Map' button,
+// refreshes the map on a new search and returns new restroom results
 function performSearch() {
   clearResults();
   clearMarkers();
@@ -149,6 +137,8 @@ function performSearch() {
   }
 }
 
+// initializes the map based on user's geolocation
+// and returns restroom search results
 function initialize(location) {
   console.log(location);
 
@@ -170,6 +160,8 @@ function initialize(location) {
   places = new google.maps.places.PlacesService(map);
   google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
 
+  // performs a new search for restrooms
+  // via the Google Places autocomplete search bar
   function onPlaceChanged() {
     clearResults();
     clearMarkers();
@@ -182,6 +174,8 @@ function initialize(location) {
       }
   }
 
+  // performs a new restroom search
+  // when the map location is changed via the search bar
   function search() {
     var keywordArray = ['starbucks', 'coffee+shop', 'park', 'hotel', 'department store', 'nyu school', 'bed bath beyond', 'barnes and noble', 'the new school', 'foundation+center', 'angelika', 'grand central terminal'];
 
@@ -205,11 +199,11 @@ function initialize(location) {
   });
 
   // this ensures we wait until the map bounds are initialized
-  // before we perform the search
+  // before we perform the restrooms search
   google.maps.event.addListenerOnce(map, 'bounds_changed', performSearch);
 
 
-  // redo search when the refresh button is clicked
+  // redo restrooms search when the 'Refresh Map' button is clicked
   $('#refresh').click(performSearch);
 }
 
